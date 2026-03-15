@@ -63,7 +63,7 @@ export async function sendPriceAlert({
               </table>
 
               <p style="margin:0 0 32px;font-size:13px;line-height:1.6;color:#555;">
-                Gold has moved more than 1% in the last hour. Log in to your dashboard to view the full 24-hour price chart.
+                Gold has moved more than 1% in the last hour. Visit the Gold Tracker website to view the full 24-hour price chart.
               </p>
 
               <p style="margin:0;font-size:11px;color:#aaa;letter-spacing:0.08em;text-transform:uppercase;">

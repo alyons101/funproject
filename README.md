@@ -2,7 +2,7 @@
 
 A full-stack web application that tracks live gold spot prices (XAU/USD) with a real-time 24-hour chart, automatic hourly data collection, and email alerts when the price moves more than 1% in an hour.
 
-**Stack:** Next.js 14 · Tailwind CSS · Supabase (PostgreSQL + Auth) · Recharts · Resend · Vercel (hosting + Cron)
+**Stack:** Next.js 14 · Tailwind CSS · Supabase (PostgreSQL) · Recharts · Resend · Vercel (hosting + Cron)
 
 ---
 
@@ -49,7 +49,7 @@ vercel.json                                  # Cron schedule (every hour)
 ### 1. Clone & install
 
 ```bash
-git clone https://github.com/alyons101/funproject
+git clone https://github.com/<your-username>/funproject
 cd funproject
 npm install
 ```
