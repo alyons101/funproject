@@ -2,7 +2,7 @@
 
 A full-stack web application that tracks live gold spot prices (XAU/USD) with a real-time 24-hour chart, automatic hourly data collection, and email alerts when the price moves more than 1% in an hour.
 
-**Stack:** Next.js 14 · Tailwind CSS · Supabase (PostgreSQL) · Recharts · Resend · Vercel (hosting + Cron)
+**Stack:** Next.js 16 · Tailwind CSS · Supabase (PostgreSQL) · Recharts · Resend · Vercel (hosting + Cron)
 
 ---
 
@@ -60,6 +60,10 @@ npm install
 2. Go to **SQL Editor** and run the contents of `supabase/migrations/001_initial.sql`.
 3. Copy your project URL and keys from **Settings → API**.
 
+> **Using only the Anon key?**  
+> If you don't have a Service Role key, you can use the Anon (Publishable) key for `SUPABASE_SERVICE_ROLE_KEY` as well.  
+> The migration already includes RLS policies that allow the anon role to insert and update data.
+
 ### 3. MetalpriceAPI
 
 1. Sign up at [metalpriceapi.com](https://metalpriceapi.com) (free tier: 100 requests/month).
@@ -68,8 +72,11 @@ npm install
 ### 4. Resend (email alerts)
 
 1. Sign up at [resend.com](https://resend.com).
-2. Verify a domain and create an API key.
-3. Set `RESEND_FROM_EMAIL` to a `sender@yourdomain.com` address on your verified domain.
+2. Create an API key from the dashboard.
+3. Set `RESEND_FROM_EMAIL` to a sender address on your verified domain (e.g. `alerts@yourdomain.com`).
+
+> **Testing without a verified domain?**  
+> Use `onboarding@resend.dev` as `RESEND_FROM_EMAIL` — Resend allows this for development/testing.
 
 ### 5. Environment variables
 
@@ -82,11 +89,11 @@ cp .env.local.example .env.local
 | Variable | Description |
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/public key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/publishable key (safe for client-side) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role (secret) key — use anon key if not available |
 | `METAL_PRICE_API_KEY` | MetalpriceAPI key |
 | `RESEND_API_KEY` | Resend API key |
-| `RESEND_FROM_EMAIL` | Sender email address (must be verified in Resend) |
+| `RESEND_FROM_EMAIL` | Sender email (verified Resend domain, or `onboarding@resend.dev` for testing) |
 | `CRON_SECRET` | Random secret to protect the cron endpoint |
 
 Generate a cron secret:
@@ -139,7 +146,7 @@ Browser (every 5 min)
 
 - `SUPABASE_SERVICE_ROLE_KEY` and `RESEND_API_KEY` are **never exposed to the browser** — used only in server-side route handlers.
 - The cron endpoint requires `Authorization: Bearer <CRON_SECRET>` and returns 401 otherwise.
-- Supabase Row-Level Security ensures anonymous users can only read `gold_prices`, not insert or delete.
+- Supabase Row-Level Security is enabled. Anonymous users can read `gold_prices` and the app's server-side routes can insert/update using the configured key.
 
 ---
 
