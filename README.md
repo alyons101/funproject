@@ -56,9 +56,10 @@ npm install
 
 ### 2. Supabase
 
-1. Create a new project at [supabase.com](https://supabase.com).
-2. Go to **SQL Editor** and run the contents of `supabase/migrations/001_initial.sql`.
-3. Copy your project URL and keys from **Settings → API**.
+The Supabase project is already provisioned at `https://zbojyyhaqaqlftyizuli.supabase.co`. The project URL and publishable key are pre-filled in `.env.local.example`.
+
+1. Go to the [Supabase Dashboard](https://supabase.com) → **SQL Editor** and run the contents of `supabase/migrations/001_initial.sql` to set up the schema (first-time only).
+2. Copy your **Service Role** key from **Settings → API** and set it as `SUPABASE_SERVICE_ROLE_KEY` in `.env.local`.
 
 > **Using only the Anon key?**  
 > If you don't have a Service Role key, you can use the Anon (Publishable) key for `SUPABASE_SERVICE_ROLE_KEY` as well.  
